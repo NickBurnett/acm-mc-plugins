@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ACMCore-development:jar">
+    <output-path>$USER_HOME$/Desktop/ACM MC DEV/plugins</output-path>
+    <root id="archive" name="ACMCore-development.jar">
+      <element id="module-output" name="CORE" />
+      <element id="module-output" name="API" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../resources/java/ConsoleLogger.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
