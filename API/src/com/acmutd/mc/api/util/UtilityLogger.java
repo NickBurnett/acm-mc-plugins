@@ -3,8 +3,6 @@ package com.acmutd.mc.api.util;
 import com.acmutd.mc.api.ACMPlugin;
 import me.nickaburnett.logger.AnsiColor;
 import me.nickaburnett.logger.AnsiDecor;
-import org.bukkit.Color;
-import org.fusesource.jansi.Ansi;
 
 public class UtilityLogger extends Utility {
     public UtilityLogger() {

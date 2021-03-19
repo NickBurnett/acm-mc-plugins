@@ -7,9 +7,7 @@ import com.acmutd.mc.api.util.Utility;
 import com.acmutd.mc.api.util.UtilityLogger;
 import com.acmutd.mc.api.util.UtilityMessager;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandMap;
-import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.reflect.Field;
@@ -85,16 +83,6 @@ public abstract class ACMPlugin extends JavaPlugin {
         this.logger().info("Registering Commands...");
         if (this.getCommandMap() == null) return;
         for (final Command key : this.getCommands().values()) {
-            /*THIS IS OBSOLETE CODE, PLEASE USING LINE 96 FOR MAIN COMMAND REGISTRATION
-            final PluginCommand cmd = this.getCommand(key.getName());
-            if (cmd == null) return;
-            cmd.unregister(this.getCommandMap());
-            cmd.setExecutor(key.buildExecutor());
-            cmd.setTabCompleter(key.buildTabCompleter());
-            cmd.setAliases(key.getAliases());
-            cmd.setDescription(key.getDescription());
-            cmd.setPermission((key.getPermissions() != null) ? key.getPermissions().get(0) : "");
-            cmd.setUsage(key.getUsage());*/
             final org.bukkit.command.Command command = key.build();
             this.getCommandMap().register(key.getName(), command);
             if (key.getPermissions() == null) continue;
