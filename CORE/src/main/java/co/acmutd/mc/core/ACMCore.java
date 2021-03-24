@@ -3,6 +3,7 @@ package co.acmutd.mc.core;
 import co.acmutd.mc.core.data.WarpData;
 import co.acmutd.mc.core.module.Module;
 import co.acmutd.mc.core.module.core.ModuleCore;
+import co.acmutd.mc.core.module.transportation.ModuleTransportation;
 import co.acmutd.mc.core.util.UtilityCache;
 import co.acmutd.mc.api.ACMPlugin;
 import co.acmutd.mc.api.command.Command;
@@ -23,7 +24,7 @@ public class ACMCore extends ACMPlugin {
     private final Map<String, Module> modules;
     private final Map<String, DataFile> configs;
     public ACMCore() {
-        super(new ACMPluginProperties("ACMCore", "0.0.0", "acm", "" + ChatColor.GOLD + ChatColor.BOLD + "ACM" + ChatColor.DARK_GRAY + ChatColor.BOLD + "» " + ChatColor.RESET));
+        super(new ACMPluginProperties("ACM", "1.0.0", "acm", "" + ChatColor.GOLD + ChatColor.BOLD + "ACM" + ChatColor.RESET));
         this.modules = new HashMap<>();
         this.configs = new HashMap<>();
         this.initializeUtilities();
@@ -69,6 +70,7 @@ public class ACMCore extends ACMPlugin {
     private void initializeModules() {
         this.addModule(new ModuleCore());
         this.addModule(new ModulePermission());
+        this.addModule(new ModuleTransportation());
         this.addModule(new ModuleCheat());
         this.addModule(new ModuleMisc());
         final Permission global = new Permission("acm.*");

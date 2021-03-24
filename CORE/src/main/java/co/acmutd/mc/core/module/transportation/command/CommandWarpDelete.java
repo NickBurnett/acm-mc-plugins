@@ -9,17 +9,18 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
-public class CommandWarpSet extends Command {
-    public CommandWarpSet() {
+public class CommandWarpDelete extends Command {
+    public CommandWarpDelete() {
         super(
-                "setwarp",
-                "Sets a warp at the user's current location.",
-                "/setwarp <name>",
+                "delwarp",
+                "Removes a given warp.",
+                "/delwarp <name>",
                 new String[] {
-                        "warpset"
+                        "removewarp"
                 },
-                new Permission("acm.transport.setwarp")
+                new Permission("acm.transport.delwarp")
         );
     }
 
@@ -27,13 +28,16 @@ public class CommandWarpSet extends Command {
     public boolean onCommand(final CommandSender sender, final org.bukkit.command.Command command, final String label, final String[] args) {
         switch (args.length) {
             case 1:
-                if (!(sender instanceof Player) || !sender.hasPermission("acm.transport.setwarp")) {
+                if (!(sender instanceof Player) || !sender.hasPermission("acm.transport.delwarp")) {
                     this.messagePermission(sender);
                     break;
                 }
-                ACMCore.get().getWarpData().addWarp(args[0].toLowerCase(), ((Player) sender).getLocation());
+                if (!ACMCore.get().getWarpData().deleteWarp(args[0].toLowerCase())) {
+                    ACMCore.getInstance().messager().message(sender, ChatColor.RED + "Invalid warp _0_...", args[0].toLowerCase());
+                    break;
+                }
                 ACMCore.get().getWarpData().save();
-                ACMCore.getInstance().messager().message(sender, "Set warp _0_ to your current location...", ChatColor.GREEN + args[0].toLowerCase());
+                ACMCore.getInstance().messager().message(sender, "Removed warp _0_...", ChatColor.GREEN + args[0].toLowerCase());
                 break;
             default:
                 this.messageUsage(sender);
@@ -44,6 +48,13 @@ public class CommandWarpSet extends Command {
 
     @Override
     public List<String> onTabComplete(final CommandSender sender, final org.bukkit.command.Command command, final String label, final String[] args) {
-        return new ArrayList<>();
+        final List<String> list = new ArrayList<>();
+        switch (args.length) {
+            case 1:
+                final Set<String> warps = ACMCore.get().getWarpData().getData().keySet();
+                list.addAll(warps);
+                break;
+        }
+        return list;
     }
 }

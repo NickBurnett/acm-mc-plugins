@@ -7,6 +7,7 @@ import org.json.simple.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class WarpData extends DataFileJSON {
     public WarpData() {
@@ -23,11 +24,18 @@ public class WarpData extends DataFileJSON {
         data.put("x", loc.getBlockX());
         data.put("y", loc.getBlockY());
         data.put("z", loc.getBlockZ());
+        data.put("yaw", loc.getYaw());
+        data.put("pitch", loc.getPitch());
         this.getData().put(name, data);
+    }
+    public final boolean deleteWarp(final String name) {
+        if (!this.getData().containsKey(name)) return false;
+        this.getData().remove(name);
+        return true;
     }
     public final Location getWarp(final String name) {
         if (!this.getData().containsKey(name)) return null;
         final JSONObject data = (JSONObject) this.getData().get(name);
-        return new Location(ACMCore.get().getServer().getWorld((String) data.get("world")), (int) data.get("x"), (int) data.get("y"), (int) data.get("z"));
+        return new Location(ACMCore.get().getServer().getWorld(UUID.fromString((String) data.get("world"))), (int) data.get("x"), (int) data.get("y"), (int) data.get("z"), (float) data.get("yaw"), (float) data.get("pitch"));
     }
 }
