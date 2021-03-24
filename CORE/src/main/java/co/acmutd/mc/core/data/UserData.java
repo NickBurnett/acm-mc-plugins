@@ -2,7 +2,6 @@ package co.acmutd.mc.core.data;
 
 import co.acmutd.mc.core.ACMCore;
 import co.acmutd.mc.api.data.DataFileJSON;
-import co.acmutd.mc.core.data.config.RankData;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachment;
 

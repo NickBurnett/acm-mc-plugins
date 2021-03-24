@@ -1,4 +1,4 @@
-package co.acmutd.mc.core.data.config;
+package co.acmutd.mc.core.data;
 
 import co.acmutd.mc.core.ACMCore;
 import co.acmutd.mc.api.data.DataFileJSON;
@@ -8,7 +8,7 @@ import java.util.*;
 
 public class RankData extends DataFileJSON {
     public RankData() {
-        super(ACMCore.get().getDataFolder() + "/config/", "ranks");
+        super(ACMCore.get().getDataFolder() + "/data/", "ranks");
     }
     @Override
     public final Map<String, Object> getDefaultData() {

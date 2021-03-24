@@ -2,7 +2,7 @@ package co.acmutd.mc.core.module.permission.command;
 
 import co.acmutd.mc.core.ACMCore;
 import co.acmutd.mc.core.data.UserData;
-import co.acmutd.mc.core.data.config.RankData;
+import co.acmutd.mc.core.data.RankData;
 import co.acmutd.mc.api.command.Command;
 import co.acmutd.mc.api.command.Permission;
 import org.bukkit.ChatColor;

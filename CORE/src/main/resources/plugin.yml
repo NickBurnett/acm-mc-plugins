@@ -1,4 +1,4 @@
-main: com.acmutd.mc.core.ACMCore
+main: co.acmutd.mc.core.ACMCore
 name: "ACM"
 version: "0.0.1"
 authors:

@@ -1,5 +1,6 @@
 package co.acmutd.mc.core;
 
+import co.acmutd.mc.core.data.WarpData;
 import co.acmutd.mc.core.module.Module;
 import co.acmutd.mc.core.module.core.ModuleCore;
 import co.acmutd.mc.core.util.UtilityCache;
@@ -9,7 +10,7 @@ import co.acmutd.mc.api.command.Permission;
 import co.acmutd.mc.api.data.DataFile;
 import co.acmutd.mc.api.event.Listener;
 import co.acmutd.mc.core.data.UserData;
-import co.acmutd.mc.core.data.config.RankData;
+import co.acmutd.mc.core.data.RankData;
 import co.acmutd.mc.core.module.cheat.ModuleCheat;
 import co.acmutd.mc.core.module.misc.ModuleMisc;
 import co.acmutd.mc.core.module.permission.ModulePermission;
@@ -35,15 +36,19 @@ public class ACMCore extends ACMPlugin {
     public final UtilityCache getCache() {
         return (UtilityCache) this.getUtilities().get("cache");
     }
-    public final RankData getRankData() {
-        return (RankData) this.configs.get("rank");
-    }
     public final Map<String, Module> getModules() {
         return this.modules;
     }
     public final Map<String, DataFile> getConfigs() {
         return this.configs;
     }
+    public final RankData getRankData() {
+        return (RankData) this.configs.get("rank");
+    }
+    public final WarpData getWarpData() {
+        return (WarpData) this.getConfigs().get("warp");
+    }
+
     public final void refresh() {
         ACMCore.getInstance().logger().info("Refreshing configuration and data files...");
         for (final DataFile key : this.getConfigs().values()) {
@@ -77,6 +82,7 @@ public class ACMCore extends ACMPlugin {
     }
     private void initializeConfigs() {
         this.getConfigs().put("rank", new RankData());
+        this.getConfigs().put("warp", new WarpData());
         for (final DataFile key : this.getConfigs().values()) {
             key.loadData();
         }

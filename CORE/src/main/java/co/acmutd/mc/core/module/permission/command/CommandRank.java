@@ -4,7 +4,7 @@ import co.acmutd.mc.core.ACMCore;
 import co.acmutd.mc.core.misc.wizard.rank.RankWizard;
 import co.acmutd.mc.api.command.Command;
 import co.acmutd.mc.api.command.Permission;
-import co.acmutd.mc.core.data.config.RankData;
+import co.acmutd.mc.core.data.RankData;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

@@ -2,7 +2,7 @@ package co.acmutd.mc.core.misc.wizard.rank;
 
 import co.acmutd.mc.api.misc.Wizard;
 import co.acmutd.mc.core.ACMCore;
-import co.acmutd.mc.core.data.config.RankData;
+import co.acmutd.mc.core.data.RankData;
 
 import java.util.UUID;
 
