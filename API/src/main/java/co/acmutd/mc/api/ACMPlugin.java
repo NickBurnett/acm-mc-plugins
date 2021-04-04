@@ -9,6 +9,7 @@ import co.acmutd.mc.api.util.UtilityLogger;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -20,6 +21,7 @@ public abstract class ACMPlugin extends JavaPlugin {
     private final HashMap<String, Command> pluginCommands;
     private final HashMap<String, Permission> pluginPermissions;
     private final HashMap<Class<? extends Listener>, Listener> pluginListeners;
+    private final HashMap<String, BukkitRunnable> tasks;
     public ACMPlugin(final ACMPluginProperties properties) {
         ACMPlugin.INSTANCE = this;
         this.properties = properties;
@@ -27,6 +29,7 @@ public abstract class ACMPlugin extends JavaPlugin {
         this.pluginCommands = new HashMap<>();
         this.pluginPermissions = new HashMap<>();
         this.pluginListeners = new HashMap<>();
+        this.tasks = new HashMap<>();
         this.initialize();
     }
     public static ACMPlugin getInstance() {
@@ -50,6 +53,9 @@ public abstract class ACMPlugin extends JavaPlugin {
     }
     public final HashMap<Class<? extends Listener>, Listener> getListeners() {
         return this.pluginListeners;
+    }
+    public final HashMap<String, BukkitRunnable> getTasks() {
+        return this.tasks;
     }
     public final UtilityLogger logger() {
         return (UtilityLogger) this.getUtilities().get("logger");
@@ -113,7 +119,7 @@ public abstract class ACMPlugin extends JavaPlugin {
         this.getPermissions().put(permission.getNode(), permission);
         return true;
     }
-    public final boolean addWildcardPermission(final String base, final Permission... children) {
+    protected final boolean addWildcardPermission(final String base, final Permission... children) {
         final Permission perm = new Permission(base);
         for (final Permission key : children) {
             perm.addChild(key.getNode());
@@ -124,6 +130,12 @@ public abstract class ACMPlugin extends JavaPlugin {
     protected final boolean addListener(final Listener listener) {
         if (this.getListeners().containsKey(listener.getClass())) return false;
         this.getListeners().put(listener.getClass(), listener);
+        return true;
+    }
+    protected final boolean addTask(final String key, final BukkitRunnable callback, final long delay, final long period) {
+        if (this.getTasks().containsKey(key)) return false;
+        this.getTasks().put(key, callback);
+        callback.runTaskTimer(this, delay, period);
         return true;
     }
     public static class ACMPluginProperties {

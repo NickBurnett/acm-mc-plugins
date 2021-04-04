@@ -38,13 +38,13 @@ public class CommandRankSet extends Command {
                 }
                 player = ACMCore.getInstance().getServer().getPlayer(args[0]);
                 if (player == null) {
-                    ACMCore.getInstance().messager().message(sender, "Player _0_ does not exist...", ChatColor.GREEN + args[1]);
+                    ACMCore.getInstance().messager().message(sender, "Player _0_ does not exist...", ChatColor.GREEN + args[0]);
                     return true;
                 }
                 data = ACMCore.get().getCache().getUsers().get(player.getUniqueId());
                 final RankData.Rank rank = ACMCore.get().getRankData().getRank(args[1]);
                 if (rank == null) {
-                    ACMCore.getInstance().messager().message(sender, "Invalid rank _0_...", ChatColor.RED + args[0]);
+                    ACMCore.getInstance().messager().message(sender, "Invalid rank _0_...", ChatColor.RED + args[1]);
                     break;
                 }
                 data.setRank(rank);
@@ -71,7 +71,7 @@ public class CommandRankSet extends Command {
                 break;
             case 2:
                 final Set<String> ranks = ACMCore.get().getRankData().getData().keySet();
-                ranks.remove("_default");
+                ranks.remove("default_rank");
                 list.addAll(ranks);
                 break;
             default:

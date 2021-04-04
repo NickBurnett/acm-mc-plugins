@@ -3,6 +3,7 @@ package co.acmutd.mc.core.module.core.listener;
 import co.acmutd.mc.api.event.Listener;
 import co.acmutd.mc.core.ACMCore;
 import co.acmutd.mc.core.data.UserData;
+import co.acmutd.mc.core.misc.scoreboard.ScoreboardCore;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -22,6 +23,9 @@ public class ListenerPlayerConnection extends Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public final void onPlayerJoin(final PlayerJoinEvent event) {
         ACMCore.get().getCache().getUsers().get(event.getPlayer().getUniqueId()).reloadPermissions();
+        ACMCore.get().getCache().getScoreboards().put(event.getPlayer().getUniqueId(), new ScoreboardCore("acm", event.getPlayer().getUniqueId()));
+        ACMCore.get().getCache().getScoreboards().get(event.getPlayer().getUniqueId()).update();
+        event.getPlayer().setScoreboard(ACMCore.get().getCache().getScoreboards().get(event.getPlayer().getUniqueId()).getScoreboard());
         event.setJoinMessage(ChatColor.translateAlternateColorCodes('&', "&8&l[&a&l+&8&l] &a&l" + event.getPlayer().getName()));
     }
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -29,5 +33,7 @@ public class ListenerPlayerConnection extends Listener {
         event.setQuitMessage(ChatColor.translateAlternateColorCodes('&', "&8&l[&c&l-&8&l] &c&l" + event.getPlayer().getName()));
         ACMCore.get().getCache().getUsers().remove(event.getPlayer().getUniqueId());
         ACMCore.get().getCache().getWizards().remove(event.getPlayer().getUniqueId());
+        ACMCore.get().getCache().getScoreboards().remove(event.getPlayer().getUniqueId());
+
     }
 }

@@ -29,6 +29,7 @@ public class UserData extends DataFileJSON {
     }
     public final void setRank(final RankData.Rank rank) {
         this.getData().put("rank", rank.getName());
+        ACMCore.get().refreshScoreboard(this.getUniqueId());
     }
     public final String getNickname() {
         return (String) this.getData().get("nickname");

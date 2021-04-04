@@ -19,12 +19,13 @@ import org.bukkit.ChatColor;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class ACMCore extends ACMPlugin {
     private final Map<String, Module> modules;
     private final Map<String, DataFile> configs;
     public ACMCore() {
-        super(new ACMPluginProperties("ACM", "1.0.0", "acm", "" + ChatColor.GOLD + ChatColor.BOLD + "ACM" + ChatColor.RESET));
+        super(new ACMPluginProperties("ACM", "1.0.0", "acm", "" + ChatColor.GOLD + ChatColor.BOLD + "ACM " + ChatColor.DARK_GRAY + ChatColor.BOLD + "\u00BB " + ChatColor.RESET));
         this.modules = new HashMap<>();
         this.configs = new HashMap<>();
         this.initializeUtilities();
@@ -58,8 +59,14 @@ public class ACMCore extends ACMPlugin {
         for (final UserData key : this.getCache().getUsers().values()) {
             key.loadData();
             key.reloadPermissions();
+            this.refreshScoreboard(key.getUniqueId());
         }
         ACMCore.getInstance().logger().info("Data refreshed...");
+    }
+    public final boolean refreshScoreboard(final UUID uuid) {
+        if (!this.getCache().getScoreboards().containsKey(uuid)) return false;
+        this.getCache().getScoreboards().get(uuid).update();
+        return true;
     }
     private void addModule(final Module module) {
         this.getModules().put(module.getName(), module);

@@ -1,6 +1,6 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 plugins {
-    id("java") apply true;
+    id("java") apply true
     id("com.github.johnrengelman.shadow") version "6.0.0" apply true
 }
 group = "co.acmutd"
